@@ -55,3 +55,16 @@ jobs:
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Setup Docker TLS
+        run: |
+          mkdir -p ~/.docker
+          echo "${{ secrets.DOCKER_CA_CERT }}" > ~/.docker/ca.pem
+          echo "${{ secrets.DOCKER_CLIENT_CERT }}" > ~/.docker/cert.pem
+          echo "${{ secrets.DOCKER_CLIENT_KEY }}" > ~/.docker/key.pem
+          chmod 600 ~/.docker/*
+      
+      - name: Set Docker host
+        run: |
+          echo "DOCKER_HOST=${{ secrets.DOCKER_HOST }}" >> $GITHUB_ENV
+          echo "DOCKER_TLS_VERIFY=1" >> $GITHUB_ENV
