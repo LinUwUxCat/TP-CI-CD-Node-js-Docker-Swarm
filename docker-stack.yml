@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  api:
+    image: ghcr.io/${IMAGE_NAME:linuwuxcat/tp-ci-cd-node-js-docker-swarm}:latest
+
+    ports:
+      - target: 3000
+        published: 3000
+        protocol: tcp
+        mode: ingress
+
+    deploy:
+      replicas: 3
+
+      update_config:
+        parallelism: 1        # 1 conteneur mis à jour à la fois
+        delay: 10s            # délai entre chaque update
+        order: start-first    # démarre le nouveau avant de tuer l'ancien
+        failure_action: rollback
+
+      rollback_config:
+        parallelism: 1
+        order: stop-first
+
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+    networks:
+      - web
+
+networks:
+  web:
+    driver: overlay

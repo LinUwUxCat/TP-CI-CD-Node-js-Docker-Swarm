@@ -62,4 +62,6 @@ Mitigations :
 
 TLS obligatoire (tlsverify=true)
 Jamais ouvrir le port 2375 (non sécurisé)
-Firewall --> limiter aux IP GitHub Actions
+Firewall --> limiter aux IP GitHub Actions  
+
+# E
