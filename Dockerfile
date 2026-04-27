@@ -21,7 +21,7 @@ ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 
 # Copier le code source
-COPY app.js ./
+COPY main.js ./
 
 # Créer un utilisateur non-root
 RUN addgroup -S nodegroup && adduser -S nodeuser -G nodegroup
@@ -33,4 +33,4 @@ USER nodeuser
 EXPOSE 3000
 
 # Commande de démarrage
-CMD ["node", "app.js"]
+CMD ["node", "main.js"]
