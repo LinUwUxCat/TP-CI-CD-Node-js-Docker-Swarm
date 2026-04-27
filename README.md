@@ -16,3 +16,10 @@ node_modules, il faut tout re-télécharger pour ne pas avoir les dépendances d
 
 on peut vérifier dans les fichiers du conteneur s'il y a des dépendances de dev
 
+# C
+
+- Quelle stratégie de tags adoptez-vous : `latest`, SHA, semver ?
+
+latest et SHA, également le nom de la branche
+
+- Pourquoi un tag immuable est préférable pour un déploiement fiable ?
